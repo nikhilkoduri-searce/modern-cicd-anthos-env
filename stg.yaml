@@ -41,7 +41,7 @@ spec:
           value: stg
         - name: LOG_LEVEL
           value: info
-        image: gcr.io/searce-anthos-lab/anthos-app:4c61aa2-dirty
+        image: gcr.io/searce-anthos-lab/anthos-app
         name: app
         ports:
         - containerPort: 8080
