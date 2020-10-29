@@ -8,12 +8,17 @@ pipeline {
       }
     }
 
-    stage('kubectl apply') {
-      steps {
-        sh 'gcloud container clusters get-credentials anthos-cluster-us-central-1 --zone us-central1-c --project searce-anthos-lab'
-        sh 'kubectl apply -f stg.yaml'
-      }
-    }
-
+  stage('Deploy kubectl') {
+            steps{
+                git url: 'https://github.com/nikhilkoduri-searce/modern-cicd-anthos-env.git'
+                step([$class: 'KubernetesEngineBuilder',
+                        projectId: "searce-anthos-lab",
+                        clusterName: "nikhil-research-cluster",
+                        zone: "us-central1-c",
+                        manifestPattern: 'stg.yaml',
+                        credentialsId: "searce-anthos-lab",
+                        verifyDeployments: true])
+  }
+  }
   }
 }
